@@ -114,7 +114,7 @@ const Home: NextPage<Props> = (props) => {
             />
             <Input
               type="text"
-              placeholder="先頭にハッシュタグをつけて施設名や地域で検索してみてください"
+              placeholder="施設名や地域で検索してみてください"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
