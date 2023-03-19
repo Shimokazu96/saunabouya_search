@@ -1,0 +1,122 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.post {
+  width: calc(25% - 20px);
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.post:last-child {
+  margin-right: 0;
+}
+
+.post-image {
+  margin-bottom: 10px;
+}
+
+.post-image img {
+  display: block;
+  max-width: 100%;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.post-actions button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.post-actions button img {
+  margin-right: 5px;
+}
+
+.post-comments {
+  margin-top: 20px;
+}
+
+.post-comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-comment img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-comment h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.post-comment p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+@media screen and (max-width: 1024px) {
+  .post {
+    width: calc(33.33% - 20px);
+    margin-right: 20px;
+  }
+  
+  .post:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    width: calc(50% - 20px);
+    margin-right: 20px;
+  }
+  
+  .post:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post {
+    width: 100%;
+    margin-right: 0;
+  }
+}
