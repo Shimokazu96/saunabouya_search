@@ -87,11 +87,9 @@ export const getStaticProps = async () => {
 
 const Home: NextPage<Props> = (props) => {
   const [searchText, setSearchText] = useState("");
-  console.log(props);
   const handleCityClick = (city: string) => {
     setSearchText(city);
   };
-  console.log(props.data.concat(props.media2.data));
   const filteredCards =
     searchText.length >= 2
       ? props.data.filter((card: any) =>
