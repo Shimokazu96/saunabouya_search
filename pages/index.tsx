@@ -102,6 +102,7 @@ const Home: NextPage<Props> = (props) => {
   return (
     <Center>
       <Box maxW="6xl" w="100%" px={{ base: "6", md: "8" }} pt={8}>
+        {/* @ts-ignore */}
         <Text textAlign="center" fontSize="xl" fontWeight="bold" mb="6">
           さうな坊やの過去投稿を検索できます
         </Text>
