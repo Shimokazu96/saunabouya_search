@@ -1084,6 +1084,11 @@
   dependencies:
     "tslib" "^2.4.0"
 
+"@types/gtag.js@^0.0.12":
+  "integrity" "sha512-YQV9bUsemkzG81Ea295/nF/5GijnD2Af7QhEofh7xu+kvCN6RdodgNwwGWXB5GMI3NoyvQo0odNctoH/qLMIpg=="
+  "resolved" "https://registry.npmjs.org/@types/gtag.js/-/gtag.js-0.0.12.tgz"
+  "version" "0.0.12"
+
 "@types/json-schema@^7.0.9":
   "integrity" "sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ=="
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
