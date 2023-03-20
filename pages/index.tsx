@@ -115,7 +115,7 @@ const Home: NextPage<Props> = (props) => {
             />
             <Input
               type="text"
-              placeholder="施設名や地域、特徴などで検索できます"
+              placeholder="施設名や地域を入力"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
@@ -125,14 +125,14 @@ const Home: NextPage<Props> = (props) => {
           <Button onClick={() => handleCityClick("大阪")} mr="2">
             大阪
           </Button>
-          <Button onClick={() => handleCityClick("関西")} mr="2">
-            関西
-          </Button>
           <Button onClick={() => handleCityClick("東京")} mr="2">
             東京
           </Button>
-          <Button onClick={() => handleCityClick("アウトドア")}>
-            アウトドア
+          <Button onClick={() => handleCityClick("北海道")} mr="2">
+            北海道
+          </Button>
+          <Button onClick={() => handleCityClick("ウェルビー")}>
+            ウェルビー
           </Button>
         </Flex>
         <Grid
@@ -145,7 +145,7 @@ const Home: NextPage<Props> = (props) => {
         >
           {filteredCards.length === 0 && searchText.length >= 3 ? (
             <Text textAlign="center" fontSize="md" mb="4">
-              まだ訪問したことがないみたい...
+              まだ投稿がないみたい...
             </Text>
           ) : (
             <></>
