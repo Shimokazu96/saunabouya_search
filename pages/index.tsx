@@ -1,13 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import {
-  getInstagramPosts,
-  getInstagramPosts2,
-  getInstagramPosts3,
-  getInstagramPosts4,
-  getInstagramPosts5,
-  getInstagramPosts6,
-  getInstagramPosts7,
+  getInstagramPosts
 } from "@/pages/api/instagram";
 import {
   Box,
@@ -25,24 +19,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 
 type Props = {
-  name: string;
   data: [];
-  media: {
-    data: [];
-    paging: {
-      cursors: {
-        after: string;
-      };
-    };
-  };
-  media2: {
-    data: [];
-    paging: {
-      cursors: {
-        after: string;
-      };
-    };
-  };
 };
 
 type Card = {
@@ -54,34 +31,25 @@ type Card = {
 };
 
 export const getStaticProps = async () => {
-  let result = [];
-  const data = await getInstagramPosts();
-  const data2 = await getInstagramPosts2();
-  const data3 = await getInstagramPosts3();
-  const data4 = await getInstagramPosts4();
-  const data5 = await getInstagramPosts5();
-  const data6 = await getInstagramPosts6();
-  const data7 = await getInstagramPosts7();
-  result = data.media.data;
+  let data:any = [];
+  let after = '';
+  let hasNextPage = true;
 
-  result = result.concat(data2.data);
-  result = result.concat(data3.data);
-  result = result.concat(data4.data);
-  result = result.concat(data5.data);
-  result = result.concat(data6.data);
-  result = result.concat(data7.data);
+  while (hasNextPage) {
+    try {
+      const response = await getInstagramPosts(after);
+      data = data.concat(response.data);
+      after = "after" in response.paging.cursors ? response.paging.cursors.after : '',
+      hasNextPage = !!after;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      hasNextPage = false;
+    }
+  }
   return {
     props: {
-      name: data.name,
-      media: data.media,
-      media2: data2,
-      data: result,
-      media3: data3,
-      media4: data4,
-      media5: data5,
-      media6: data6,
-      media7: data7,
-    },
+      data: data
+    }
   };
 };
 
@@ -92,7 +60,7 @@ const Home: NextPage<Props> = (props) => {
   };
   const filteredCards =
     searchText.length >= 2
-      ? props.data.filter((card: any) =>
+      ? props.data.filter((card: Card) =>
           card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
         )
       : props.data;
