@@ -109,6 +109,7 @@ const Home: NextPage<Props> = (props) => {
             md: "repeat(2, 1fr)",
             lg: "repeat(4, 1fr)",
           }}
+          mb="4"
           gap={{ base: 6, md: 8 }}
         >
           {filteredCards.length === 0 && searchText.length >= 3 ? (
@@ -118,7 +119,7 @@ const Home: NextPage<Props> = (props) => {
           ) : (
             <></>
           )}
-          {filteredCards.map((card: Card) => (
+          {filteredCards.map((card: Card, index: number) => (
             <Link
               maxWidth="400px"
               maxHeight="400px"
