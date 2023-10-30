@@ -100,8 +100,8 @@ const Home: NextPage<Props> = (props) => {
           <Button onClick={() => handleCityClick("北海道")} mr="2">
             北海道
           </Button>
-          <Button onClick={() => handleCityClick("ウェルビー")}>
-            ウェルビー
+          <Button onClick={() => handleCityClick("愛知")}>
+            愛知
           </Button>
         </Flex>
         <Grid
