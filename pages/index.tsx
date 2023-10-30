@@ -28,6 +28,7 @@ type Card = {
   caption: string;
   permalink: string;
   media_url: string;
+  thumbnail_url: string;
 };
 
 export const getStaticProps = async () => {
@@ -39,7 +40,7 @@ export const getStaticProps = async () => {
     try {
       const response = await getInstagramPosts(after);
       data = data.concat(response.data);
-      after = "after" in response.paging.cursors ? response.paging.cursors.after : '',
+      after = response.paging && response.paging.cursors && "after" in response.paging.cursors ? response.paging.cursors.after : '';
       hasNextPage = !!after;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -147,16 +148,30 @@ const Home: NextPage<Props> = (props) => {
                 <Center h="100%">
                   {card.media_url &&
                   card.media_url.indexOf("https://video") !== -1 ? (
-                    <video src={card.media_url}>
-                      <p>
-                        動画を再生するにはvideoタグをサポートしたブラウザが必要です。
-                      </p>
-                    </video>
+                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
+                      <video 
+                        src={card.media_url} 
+                        style={{ 
+                          width: '100%', 
+                          height: '100%', 
+                          objectFit: 'cover' 
+                        }}
+                      >
+                        <p>
+                          動画を再生するにはvideoタグをサポートしたブラウザが必要です。
+                        </p>
+                      </video>
+                    </div>
                   ) : (
-                    <Image
-                      src={card.media_url ? card.media_url : "/noimage.png"}
-                      alt={card.username}
-                    />
+                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
+                      <Image
+                        src={card.media_url ? card.media_url : (card.thumbnail_url ? card.thumbnail_url : "/noimage.png")}
+                        alt={card.username}
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </div>
                   )}
                 </Center>
 
