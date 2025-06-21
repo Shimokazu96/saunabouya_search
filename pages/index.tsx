@@ -150,7 +150,23 @@ const Home: NextPage<Props> = (props) => {
                 }}
               >
                 <Center h="100%">
-                  {card.media_type === "IMAGE" && card.media_url ? (
+                  {card.media_url &&
+                    card.media_type === 'VIDEO' ? (
+                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
+                      <video
+                        src={card.media_url}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      >
+                        <p>
+                          動画を再生するにはvideoタグをサポートしたブラウザが必要です。
+                        </p>
+                      </video>
+                    </div>
+                  ) : (
                     <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
                       <Image
                         src={card.media_url ? card.media_url : (card.thumbnail_url ? card.thumbnail_url : "/noimage.png")}
@@ -160,24 +176,6 @@ const Home: NextPage<Props> = (props) => {
                         objectFit="cover"
                       />
                     </div>
-                  ) : card.media_type === "VIDEO" && card.thumbnail_url ? (
-                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
-                      <Image
-                        src={card.thumbnail_url}
-                        alt={card.username}
-                        width="100%"
-                        height="100%"
-                        objectFit="cover"
-                      />
-                    </div>
-                  ) : (
-                    <Image
-                      src="/noimage.png"
-                      alt="No image available"
-                      width="100%"
-                      height="100%"
-                      objectFit="cover"
-                    />
                   )}
                 </Center>
 
