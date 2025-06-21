@@ -1,0 +1,14 @@
+name: Trigger Vercel Rebuild
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日0時（JSTで9時）実行
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Vercel Webhook
+        run: |
+          curl -sf -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"

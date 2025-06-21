@@ -76,34 +76,36 @@ const Home: NextPage<Props> = (props) => {
         <Text textAlign="center" fontSize="md" mb="4">
           クリックして投稿をチェックしよう！
         </Text>
-        <Box mb={4}>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="gray.300" />}
-            />
+        <Box mb={6}>
+          <InputGroup size="lg" shadow="sm">
+            <InputLeftElement pointerEvents="none">
+              <SearchIcon color="gray.400" />
+            </InputLeftElement>
             <Input
-              type="text"
+              borderRadius="full"
+              bg="white"
               placeholder="施設名や地域を入力"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
+              _focus={{ borderColor: "blue.400", boxShadow: "0 0 0 1px #4299e1" }}
             />
           </InputGroup>
         </Box>
-        <Flex justify="center" mb="4">
-          <Button onClick={() => handleCityClick("大阪")} mr="2">
-            大阪
-          </Button>
-          <Button onClick={() => handleCityClick("東京")} mr="2">
-            東京
-          </Button>
-          <Button onClick={() => handleCityClick("北海道")} mr="2">
-            北海道
-          </Button>
-          <Button onClick={() => handleCityClick("Finland")}>
-            Finland
-          </Button>
+        <Flex justify="center" flexWrap="wrap" gap={2} mb={6}>
+          {["大阪", "東京", "北海道", "Finland"].map((city) => (
+            <Button
+              key={city}
+              onClick={() => handleCityClick(city)}
+              borderRadius="full"
+              variant="outline"
+              colorScheme="teal"
+              _hover={{ bg: "teal.100" }}
+            >
+              #{city}
+            </Button>
+          ))}
         </Flex>
+
         <Grid
           templateColumns={{
             base: "repeat(1, 1fr)",
