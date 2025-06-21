@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { useState } from "react";
+import type { NextPage } from "next"
+import { useState } from "react"
 import {
   getInstagramPosts
-} from "@/pages/api/instagram";
+} from "@/pages/api/instagram"
 import {
   Box,
   Center,
@@ -15,56 +15,58 @@ import {
   InputGroup,
   Button,
   InputLeftElement,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+} from "@chakra-ui/react"
+import { SearchIcon } from "@chakra-ui/icons"
 
 type Props = {
-  data: [];
-};
+  data: []
+}
 
 type Card = {
-  id: number;
-  username: string;
-  caption: string;
-  permalink: string;
-  media_url: string;
-  thumbnail_url: string;
-};
+  id: number
+  username: string
+  caption: string
+  permalink: string
+  media_url: string
+  media_type: 'IMAGE' | 'VIDEO'
+  thumbnail_url: string
+}
 
 export const getStaticProps = async () => {
-  let data:any = [];
-  let after = '';
-  let hasNextPage = true;
+  let data: any = []
+  let after = ''
+  let hasNextPage = true
 
   while (hasNextPage) {
     try {
-      const response = await getInstagramPosts(after);
-      data = data.concat(response.data);
-      after = response.paging && response.paging.cursors && "after" in response.paging.cursors ? response.paging.cursors.after : '';
-      hasNextPage = !!after;
+      const response = await getInstagramPosts(after)
+      data = data.concat(response.data)
+      after = response.paging && response.paging.cursors && "after" in response.paging.cursors ? response.paging.cursors.after : ''
+      hasNextPage = !!after
     } catch (error) {
-      console.error('Error fetching data:', error);
-      hasNextPage = false;
+      console.error('Error fetching data:', error)
+      hasNextPage = false
     }
   }
   return {
     props: {
       data: data
     }
-  };
-};
+  }
+}
 
 const Home: NextPage<Props> = (props) => {
-  const [searchText, setSearchText] = useState("");
+  console.log("props", props.data)
+  const [searchText, setSearchText] = useState("")
   const handleCityClick = (city: string) => {
-    setSearchText(city);
-  };
+    setSearchText(city)
+  }
   const filteredCards =
     searchText.length >= 2
       ? props.data.filter((card: Card) =>
-          card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
-        )
-      : props.data;
+        card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
+      )
+      : props.data
 
   return (
     <Center>
@@ -149,14 +151,14 @@ const Home: NextPage<Props> = (props) => {
               >
                 <Center h="100%">
                   {card.media_url &&
-                  card.media_url.indexOf("https://video") !== -1 ? (
+                    card.media_type === 'VIDEO' ? (
                     <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
-                      <video 
-                        src={card.media_url} 
-                        style={{ 
-                          width: '100%', 
-                          height: '100%', 
-                          objectFit: 'cover' 
+                      <video
+                        src={card.media_url}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
                         }}
                       >
                         <p>
@@ -186,7 +188,7 @@ const Home: NextPage<Props> = (props) => {
         </Grid>
       </Box>
     </Center>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
