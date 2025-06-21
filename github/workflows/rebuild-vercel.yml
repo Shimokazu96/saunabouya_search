@@ -2,9 +2,8 @@ name: Trigger Vercel Rebuild
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 毎日0時（JSTで9時）実行
+    - cron: '18 18 * * *'  # UTC 18:18 → JST 03:18（+9時間）
   workflow_dispatch:
-
 jobs:
   rebuild:
     runs-on: ubuntu-latest
