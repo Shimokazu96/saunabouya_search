@@ -99,7 +99,7 @@ const Home: NextPage<Props> = (props) => {
           </InputGroup>
         </Box>
         <Flex justify="center" flexWrap="wrap" gap={2} mb={6}>
-          {["大阪", "東京", "北海道", "Finland"].map((city) => (
+          {(["大阪", "東京", "北海道", "Finland"] as string[]).map((city) => (
             <Button
               key={city}
               onClick={() => handleCityClick(city)}
@@ -172,16 +172,26 @@ const Home: NextPage<Props> = (props) => {
                       </video>
                     </div>
                   ) : (
-                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
+                    <Box
+                      position="relative"
+                      width="246px"
+                      height="246px"
+                      overflow="hidden"
+                      borderRadius="lg"
+                    >
                       <Image
-                        src={card.media_url || card.thumbnail_url || "/noimage.png"}
+                        src={
+                          typeof card.media_url === "string" && card.media_url.startsWith("http")
+                            ? card.media_url
+                            : card.thumbnail_url || "/noimage.png"
+                        }
                         alt={card.username}
                         fill
                         style={{ objectFit: "cover" }}
                         sizes="(max-width: 768px) 100vw, 246px"
                         priority={index < 6}
                       />
-                    </div>
+                    </Box>
                   )}
                 </Center>
                 <VisuallyHidden>{card.caption}</VisuallyHidden>
