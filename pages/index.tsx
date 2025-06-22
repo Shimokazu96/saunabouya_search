@@ -15,6 +15,8 @@ import {
   InputGroup,
   Button,
   InputLeftElement,
+  VisuallyHidden,
+  GridItem,
 } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
 
@@ -56,18 +58,21 @@ export const getStaticProps = async () => {
 }
 
 const Home: NextPage<Props> = (props) => {
-  console.log("props", props.data)
   const [searchText, setSearchText] = useState("")
   const handleCityClick = (city: string) => {
     setSearchText(city)
   }
+
   const filteredCards =
     searchText.length >= 2
       ? props.data.filter((card: Card) =>
         card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
       )
       : props.data
+  const [visibleCount, setVisibleCount] = useState(12)
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 12)
 
+  const visibleCards = filteredCards.slice(0, visibleCount)
   return (
     <Center>
       <Box maxW="6xl" w="100%" px={{ base: "6", md: "8" }} pt={8}>
@@ -103,7 +108,7 @@ const Home: NextPage<Props> = (props) => {
               colorScheme="teal"
               _hover={{ bg: "teal.100" }}
             >
-              #{city}
+              {city}
             </Button>
           ))}
         </Flex>
@@ -124,7 +129,7 @@ const Home: NextPage<Props> = (props) => {
           ) : (
             <></>
           )}
-          {filteredCards.map((card: Card, index: number) => (
+          {visibleCards.map((card: Card, index: number) => (
             <Link
               maxWidth="400px"
               maxHeight="400px"
@@ -174,17 +179,24 @@ const Home: NextPage<Props> = (props) => {
                         width="100%"
                         height="100%"
                         objectFit="cover"
+                        loading="lazy"
                       />
                     </div>
                   )}
                 </Center>
-
-                <Text display="none" fontSize="md" color="gray.500">
-                  {card.caption}
-                </Text>
+                <VisuallyHidden>{card.caption}</VisuallyHidden>
               </Box>
             </Link>
           ))}
+          {visibleCount < filteredCards.length && (
+            <GridItem colSpan={{ base: 1, md: 2, lg: 4 }}>
+              <Center>
+                <Button onClick={handleLoadMore} colorScheme="teal">
+                  もっと見る
+                </Button>
+              </Center>
+            </GridItem>
+          )}
         </Grid>
       </Box>
     </Center>
