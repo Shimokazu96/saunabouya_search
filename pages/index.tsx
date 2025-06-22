@@ -1,5 +1,6 @@
 import type { NextPage } from "next"
 import { useState } from "react"
+import Image from "next/image"
 import {
   getInstagramPosts
 } from "@/pages/api/instagram"
@@ -7,7 +8,6 @@ import {
   Box,
   Center,
   Grid,
-  Image,
   Text,
   Link,
   Input,
@@ -174,12 +174,12 @@ const Home: NextPage<Props> = (props) => {
                   ) : (
                     <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
                       <Image
-                        src={card.media_url ? card.media_url : (card.thumbnail_url ? card.thumbnail_url : "/noimage.png")}
+                        src={card.media_url || card.thumbnail_url || "/noimage.png"}
                         alt={card.username}
-                        width="100%"
-                        height="100%"
-                        objectFit="cover"
-                        loading="lazy"
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 246px"
+                        priority={index < 6}
                       />
                     </div>
                   )}
