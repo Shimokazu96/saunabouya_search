@@ -183,7 +183,9 @@ const Home: NextPage<Props> = (props) => {
                         src={
                           typeof card.media_url === "string" && card.media_url.startsWith("http")
                             ? card.media_url
-                            : card.thumbnail_url || "/noimage.png"
+                            : (typeof card.thumbnail_url === "string" && card.thumbnail_url.startsWith("http")
+                                ? card.thumbnail_url
+                                : '/noimage.png')
                         }
                         alt={card.username}
                         fill
