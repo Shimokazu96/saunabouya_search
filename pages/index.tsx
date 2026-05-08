@@ -1,9 +1,7 @@
-import type { NextPage } from "next"
-import { useState } from "react"
-import Image from "next/image"
-import {
-  getInstagramPosts
-} from "@/pages/api/instagram"
+import type { NextPage } from "next";
+import { useState } from "react";
+import Image from "next/image";
+import { getInstagramPosts } from "@/pages/api/instagram";
 import {
   Box,
   Center,
@@ -17,66 +15,71 @@ import {
   InputLeftElement,
   VisuallyHidden,
   GridItem,
-} from "@chakra-ui/react"
-import { SearchIcon } from "@chakra-ui/icons"
+} from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 
 type Props = {
-  data: []
-}
+  data: Card[];
+};
 
 type Card = {
-  id: number
-  username: string
-  caption: string
-  permalink: string
-  media_url: string
-  media_type: 'IMAGE' | 'VIDEO'
-  thumbnail_url: string
-}
+  id: number;
+  username: string;
+  caption: string;
+  permalink: string;
+  media_url: string;
+  media_type: "IMAGE" | "VIDEO";
+  thumbnail_url: string;
+};
 
 export const getStaticProps = async () => {
-  let data: any = []
-  let after = ''
-  let hasNextPage = true
+  let data: Card[] = [];
+  let after = "";
+  let hasNextPage = true;
 
   while (hasNextPage) {
     try {
-      const response = await getInstagramPosts(after)
-      data = data.concat(response.data)
-      after = response.paging && response.paging.cursors && "after" in response.paging.cursors ? response.paging.cursors.after : ''
-      hasNextPage = !!after
+      const response = await getInstagramPosts(after);
+      data = data.concat(response.data);
+      after =
+        response.paging &&
+        response.paging.cursors &&
+        "after" in response.paging.cursors
+          ? response.paging.cursors.after
+          : "";
+      hasNextPage = !!after;
     } catch (error) {
-      console.error('Error fetching data:', error)
-      hasNextPage = false
+      console.error("Error fetching data:", error);
+      hasNextPage = false;
     }
   }
   return {
     props: {
-      data: data
-    }
-  }
-}
+      data: data,
+    },
+  };
+};
 
 const Home: NextPage<Props> = (props) => {
-  const [searchText, setSearchText] = useState("")
+  const [searchText, setSearchText] = useState("");
   const handleCityClick = (city: string) => {
-    setSearchText(city)
-  }
+    setSearchText(city);
+  };
 
   const filteredCards =
     searchText.length >= 2
       ? props.data.filter((card: Card) =>
-        card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
-      )
-      : props.data
-  const [visibleCount, setVisibleCount] = useState(12)
-  const handleLoadMore = () => setVisibleCount((prev) => prev + 12)
+          card.caption.toLowerCase().includes("#" + searchText.toLowerCase())
+        )
+      : props.data;
+  const [visibleCount, setVisibleCount] = useState(12);
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 12);
 
-  const visibleCards = filteredCards.slice(0, visibleCount)
-  return (
+  const visibleCards = filteredCards.slice(0, visibleCount);
+  const pageContent = (
     <Center>
       <Box maxW="6xl" w="100%" px={{ base: "6", md: "8" }} pt={8}>
-        {/* @ts-ignore */}
+        {/* @ts-ignore Chakra UI prop unions exceed TypeScript's complexity limit on this heading. */}
         <Text textAlign="center" fontSize="xl" fontWeight="bold" mb="2">
           さうな坊やの過去投稿を検索できます
         </Text>
@@ -94,7 +97,10 @@ const Home: NextPage<Props> = (props) => {
               placeholder="施設名や地域を入力"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              _focus={{ borderColor: "blue.400", boxShadow: "0 0 0 1px #4299e1" }}
+              _focus={{
+                borderColor: "blue.400",
+                boxShadow: "0 0 0 1px #4299e1",
+              }}
             />
           </InputGroup>
         </Box>
@@ -155,15 +161,20 @@ const Home: NextPage<Props> = (props) => {
                 }}
               >
                 <Center h="100%">
-                  {card.media_url &&
-                    card.media_type === 'VIDEO' ? (
-                    <div style={{ width: '246px', height: '246px', overflow: 'hidden' }}>
+                  {card.media_url && card.media_type === "VIDEO" ? (
+                    <div
+                      style={{
+                        width: "246px",
+                        height: "246px",
+                        overflow: "hidden",
+                      }}
+                    >
                       <video
                         src={card.media_url}
                         style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover'
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
                         }}
                       >
                         <p>
@@ -181,11 +192,13 @@ const Home: NextPage<Props> = (props) => {
                     >
                       <Image
                         src={
-                          typeof card.media_url === "string" && card.media_url.startsWith("http")
+                          typeof card.media_url === "string" &&
+                          card.media_url.startsWith("http")
                             ? card.media_url
-                            : (typeof card.thumbnail_url === "string" && card.thumbnail_url.startsWith("http")
-                                ? card.thumbnail_url
-                                : '/noimage.png')
+                            : typeof card.thumbnail_url === "string" &&
+                              card.thumbnail_url.startsWith("http")
+                            ? card.thumbnail_url
+                            : "/noimage.png"
                         }
                         alt={card.username}
                         fill
@@ -212,7 +225,9 @@ const Home: NextPage<Props> = (props) => {
         </Grid>
       </Box>
     </Center>
-  )
-}
+  );
 
-export default Home
+  return pageContent;
+};
+
+export default Home;

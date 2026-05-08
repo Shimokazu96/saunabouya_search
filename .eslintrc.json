@@ -36,6 +36,7 @@
   // ルール設定が重複する場合は、後から指定したものが適用される
   "extends": [
     "eslint:recommended",
+    "next/core-web-vitals",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
@@ -47,7 +48,14 @@
   // extendsで指定した共有設定以外の個別設定
   // 0:無効, 1:警告, 2: エラー
   "rules": {
-    "react/props-types": 0,
+    "@typescript-eslint/ban-ts-comment": [
+      2,
+      {
+        "ts-ignore": "allow-with-description",
+        "minimumDescriptionLength": 10
+      }
+    ],
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": 0
   }
 }

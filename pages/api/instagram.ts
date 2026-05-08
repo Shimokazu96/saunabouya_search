@@ -3,10 +3,10 @@ import axios from "axios";
 const accessToken = process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN;
 const businessId = process.env.NEXT_PUBLIC_INSTAGRAM_BUSINESS_ID;
 
-export async function getInstagramPosts(param = '') {
-  let after = ''
-  if(param !== '') {
-    after = `&after=${param}`
+export async function getInstagramPosts(param = "") {
+  let after = "";
+  if (param !== "") {
+    after = `&after=${param}`;
   }
   const response = await axios.get(
     `https://graph.facebook.com/v18.0/${businessId}/media?access_token=${accessToken}&fields=caption%2Clike_count%2Cmedia_url%2Cmedia_type%2Cthumbnail_url%2Cpermalink%2Ctimestamp%2Cusername${after}`

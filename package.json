@@ -2,12 +2,16 @@
   "name": "saunabouya_serach",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "packageManager": "npm@10.9.7",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .ts,.tsx src",
-    "lint:fix": "eslint --ext .ts,.tsx src --fix"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -28,9 +32,12 @@
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
     "eslint": "8.36.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-config-next": "13.2.4",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.7",
     "typescript": "5.0.2"
   }
 }
