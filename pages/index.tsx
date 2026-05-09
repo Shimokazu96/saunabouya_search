@@ -391,7 +391,9 @@ const Home: NextPage<Props> = ({ data }) => {
                 Saunabouya Archive
               </p>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
-                さうな坊やの投稿を、見やすく検索。
+                さうな坊やの投稿を、
+                <br className="sm:hidden" />
+                見やすく検索。
               </h1>
               <p className="max-w-2xl text-sm leading-7 text-boya-ink/80 sm:text-base">
                 施設名や地域名で過去の投稿を探せる一覧です。気になる投稿を見つけたら、そのまま
