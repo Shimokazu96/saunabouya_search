@@ -386,7 +386,7 @@ const Home: NextPage<Props> = ({ data }) => {
       <main className="flex min-h-screen flex-col items-center py-6 sm:py-10">
         <div className="flex w-full max-w-6xl flex-col gap-5 px-4 sm:gap-6">
           <header className="flex flex-col gap-6 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
-            <div className="flex max-w-3xl flex-col gap-3">
+            <div className="flex flex-col gap-3">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-boya-navy/62">
                 Saunabouya Archive
               </p>
@@ -400,53 +400,36 @@ const Home: NextPage<Props> = ({ data }) => {
                 Instagram で確認できます。
               </p>
             </div>
-            <div className="grid gap-3 md:max-w-[220px]">
-              <div className="flex flex-col gap-2 rounded-2xl border border-boya-line bg-boya-mist px-5 py-4">
-                <span className="block text-[clamp(1.5rem,2.2vw,1.95rem)] font-semibold leading-none text-boya-navy">
-                  {data.length}
-                </span>
-                <span className="block text-sm text-boya-navy/62">投稿数</span>
-              </div>
-            </div>
-          </header>
 
-          <section className="flex flex-col gap-5 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-semibold text-boya-navy">検索</h2>
-                <p className="text-sm leading-7 text-boya-ink/80 sm:text-base">
-                  施設名や地域名で投稿を絞り込めます。
-                </p>
-              </div>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <label className="flex w-full flex-col gap-2 sm:max-w-md">
+                <span className="text-sm font-medium text-boya-navy/90">
+                  キーワード
+                </span>
+                <span className="flex min-h-[60px] items-center gap-3 rounded-2xl border border-boya-line bg-boya-mist px-4 py-3 transition focus-within:border-boya-navy/40 focus-within:ring-4 focus-within:ring-boya-sand">
+                  <span className="text-lg text-boya-navy/48" aria-hidden="true">
+                    ⌕
+                  </span>
+                  <input
+                    value={searchText}
+                    onChange={(event) => setSearchText(event.target.value)}
+                    className="w-full border-0 bg-transparent text-base text-boya-navy outline-none placeholder:text-boya-navy/42"
+                    placeholder="例: 心斎橋 / 梅田 / 施設名"
+                    aria-label="施設名や地域を入力"
+                  />
+                </span>
+              </label>
               {searchText ? (
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-full bg-boya-mist px-4 py-2 text-sm font-medium text-boya-navy transition hover:bg-boya-sand"
+                  className="inline-flex shrink-0 items-center justify-center rounded-full bg-boya-mist px-4 py-2 text-sm font-medium text-boya-navy transition hover:bg-boya-sand"
                   onClick={() => setSearchText("")}
                 >
                   クリア
                 </button>
               ) : null}
             </div>
-
-            <label className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-boya-navy/90">
-                キーワード
-              </span>
-              <span className="flex min-h-[60px] items-center gap-3 rounded-2xl border border-boya-line bg-white px-4 py-3 shadow-sm transition focus-within:border-boya-navy/40 focus-within:ring-4 focus-within:ring-boya-sand">
-                <span className="text-lg text-boya-navy/48" aria-hidden="true">
-                  ⌕
-                </span>
-                <input
-                  value={searchText}
-                  onChange={(event) => setSearchText(event.target.value)}
-                  className="w-full border-0 bg-transparent text-base text-boya-navy outline-none placeholder:text-boya-navy/42"
-                  placeholder="例: 心斎橋 / 梅田 / 施設名"
-                  aria-label="施設名や地域を入力"
-                />
-              </span>
-            </label>
-          </section>
+          </header>
 
           <section
             className="flex flex-col gap-5"
