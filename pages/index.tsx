@@ -18,7 +18,7 @@ const INSTAGRAM_CACHE_PATH = path.join(
 );
 const PAGE_TITLE = "さうな坊やの投稿検索 | サウナ施設・地域別アーカイブ";
 const PAGE_DESCRIPTION =
-  "さうな坊やのInstagram投稿を、施設名や地域名で検索できるアーカイブページです。大阪・東京・北海道などのサウナ情報を見やすく一覧できます。";
+  "さうな坊やのInstagram投稿を施設名や地域名で検索できるアーカイブページです。大阪・東京・北海道などのサウナ情報を見やすく一覧できます。";
 const SITE_NAME = "さうな坊やの投稿検索";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 
@@ -391,7 +391,7 @@ const Home: NextPage<Props> = ({ data }) => {
                 Saunabouya Archive
               </p>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
-                さうな坊やの投稿を、
+                さうな坊やの投稿を
                 <br className="sm:hidden" />
                 見やすく検索。
               </h1>
