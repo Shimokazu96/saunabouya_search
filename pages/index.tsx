@@ -407,7 +407,10 @@ const Home: NextPage<Props> = ({ data }) => {
                   キーワード
                 </span>
                 <span className="flex min-h-[60px] items-center gap-3 rounded-2xl border border-boya-line bg-boya-mist px-4 py-3 transition focus-within:border-boya-navy/40 focus-within:ring-4 focus-within:ring-boya-sand">
-                  <span className="text-lg text-boya-navy/48" aria-hidden="true">
+                  <span
+                    className="text-lg text-boya-navy/48"
+                    aria-hidden="true"
+                  >
                     ⌕
                   </span>
                   <input
