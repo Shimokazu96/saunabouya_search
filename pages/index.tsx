@@ -224,9 +224,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      const responseData =
-        (error as { response?: { data?: unknown } })?.response?.data;
-      console.error("Error fetching Instagram data:", errorMessage, responseData ?? "");
+      const responseData = (
+        error as { response?: { data?: unknown } }
+      )?.response?.data;
+      console.error(
+        "Error fetching Instagram data:",
+        errorMessage,
+        responseData ?? ""
+      );
       hasNextPage = false;
     }
   }
