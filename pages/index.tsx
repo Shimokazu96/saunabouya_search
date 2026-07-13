@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import path from "path";
 import { useEffect, useState } from "react";
 
@@ -393,9 +394,17 @@ const Home: NextPage<Props> = ({ data }) => {
         <div className="flex w-full max-w-6xl flex-col gap-5 px-4 sm:gap-6">
           <header className="flex flex-col gap-6 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-boya-navy/62">
-                Saunabouya Archive
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-boya-navy/62">
+                  Saunabouya Archive
+                </p>
+                <Link
+                  href="/about"
+                  className="text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
+                >
+                  About
+                </Link>
+              </div>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
                 さうな坊やの投稿を
                 <br className="sm:hidden" />
