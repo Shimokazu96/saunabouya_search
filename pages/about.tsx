@@ -20,23 +20,23 @@ const ACTIVITY_AREAS = [
 const SNS_LINKS = [
   {
     name: "Instagram",
-    handle: "@saunabouya",
-    url: "https://www.instagram.com/saunabouya/",
+    handle: "@sauna_bouya",
+    url: "https://www.instagram.com/sauna_bouya/",
   },
   {
     name: "X",
-    handle: "@saunabouya",
-    url: "https://x.com/saunabouya",
+    handle: "@sauna_bouya",
+    url: "https://x.com/sauna_bouya",
   },
   {
     name: "TikTok",
-    handle: "@saunabouya",
-    url: "https://www.tiktok.com/@saunabouya",
+    handle: "@sauna_bouya",
+    url: "https://www.tiktok.com/@sauna_bouya",
   },
   {
     name: "YouTube",
-    handle: "さうな坊や",
-    url: "https://www.youtube.com/@saunabouya",
+    handle: "@sauna_bouya",
+    url: "https://www.youtube.com/@sauna_bouya",
   },
 ];
 
