@@ -12,9 +12,9 @@ const BIO_LINES = [
 
 const ACTIVITY_AREAS = [
   { label: "大阪", note: "中心" },
-  { label: "東京" },
-  { label: "北海道" },
-  { label: "フィンランド", note: "海外" },
+  { label: "兵庫", note: "中心" },
+  { label: "京都", note: "中心" },
+  { label: "全国" },
 ];
 
 const SNS_LINKS = [

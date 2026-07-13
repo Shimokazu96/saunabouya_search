@@ -432,7 +432,7 @@ const Home: NextPage<Props> = ({ data }) => {
                     value={searchText}
                     onChange={(event) => setSearchText(event.target.value)}
                     className="w-full border-0 bg-transparent text-base text-boya-navy outline-none placeholder:text-boya-navy/42"
-                    placeholder="例: 心斎橋 / 梅田 / 施設名"
+                    placeholder="例: 大阪 / 神戸 / 施設名"
                     aria-label="施設名や地域を入力"
                   />
                 </span>
