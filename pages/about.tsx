@@ -57,18 +57,12 @@ const About: NextPage = () => {
         <meta property="og:description" content={pageDescription} />
         <meta property="og:locale" content="ja_JP" />
         <meta name="twitter:card" content="summary" />
-        {SITE_URL ? (
-          <link rel="canonical" href={`${SITE_URL}/about`} />
-        ) : null}
+        {SITE_URL ? <link rel="canonical" href={`${SITE_URL}/about`} /> : null}
         {SITE_URL ? (
           <meta property="og:url" content={`${SITE_URL}/about`} />
         ) : null}
-        {ogImageUrl ? (
-          <meta property="og:image" content={ogImageUrl} />
-        ) : null}
-        {ogImageUrl ? (
-          <meta name="twitter:image" content={ogImageUrl} />
-        ) : null}
+        {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+        {ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
       </Head>
       <main className="flex min-h-screen flex-col items-center py-6 sm:py-10">
         <div className="flex w-full max-w-2xl flex-col gap-5 px-4 sm:gap-6">
@@ -115,7 +109,9 @@ const About: NextPage = () => {
                 >
                   {label}
                   {note ? (
-                    <span className="text-[11px] text-boya-navy/50">{note}</span>
+                    <span className="text-[11px] text-boya-navy/50">
+                      {note}
+                    </span>
                   ) : null}
                 </span>
               ))}
