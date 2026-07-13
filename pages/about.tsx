@@ -118,7 +118,7 @@ const About: NextPage = () => {
             <div className="flex flex-col items-center px-6 pb-8">
               <div className="-mt-14 overflow-hidden rounded-full border-4 border-white shadow-sm">
                 <Image
-                  src="/apple-touch-icon.png"
+                  src="/saunabouya-avatar.png"
                   alt="さうな坊やのアイコン"
                   width={96}
                   height={96}
