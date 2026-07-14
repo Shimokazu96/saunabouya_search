@@ -24,6 +24,9 @@ const SITE_NAME = "さうな坊やの投稿検索";
 const getPageDescription = (count: number) =>
   `大阪・京都・兵庫を中心に、さうな坊やが実際に訪問したサウナ・銭湯のInstagram投稿${count}件を、施設名や地域名から検索できます。`;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+const CANONICAL_URL = "https://search.saunabouya.com/";
+const OGP_IMAGE_URL = "https://search.saunabouya.com/apple-touch-icon.png";
+const QUICK_SEARCH_AREAS = ["大阪", "兵庫", "京都", "奈良"] as const;
 
 type InstagramMediaType = "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
 
@@ -60,6 +63,7 @@ type InstagramPost = {
 
 type Props = {
   data: Card[];
+  lastUpdatedAt: string | null;
 };
 
 type InstagramCache = {
@@ -209,9 +213,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const cachedData = await readInstagramCache();
 
   if (process.env.NODE_ENV === "development" && cachedData) {
+    const devData = cachedData.slice(0, DEV_MAX_POSTS);
     return {
       props: {
-        data: cachedData.slice(0, DEV_MAX_POSTS),
+        data: devData,
+        lastUpdatedAt: devData[0]?.timestamp ?? null,
       },
       revalidate: 60,
     };
@@ -269,6 +275,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
       data,
+      lastUpdatedAt: data[0]?.timestamp ?? null,
     },
     revalidate: 3600,
   };
@@ -358,7 +365,7 @@ function PostCard({ card, index }: { card: Card; index: number }) {
   );
 }
 
-const Home: NextPage<Props> = ({ data }) => {
+const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
@@ -379,8 +386,6 @@ const Home: NextPage<Props> = ({ data }) => {
   const pageDescription = getPageDescription(data.length);
   const structuredData = getStructuredData(data, pageDescription);
   const websiteStructuredData = getWebsiteStructuredData(pageDescription);
-  const ogImageUrl = SITE_URL ? `${SITE_URL}/apple-touch-icon.png` : "";
-
   useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE_COUNT);
   }, [normalizedSearchText]);
@@ -415,10 +420,10 @@ const Home: NextPage<Props> = ({ data }) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={pageDescription} />
-        {SITE_URL ? <link rel="canonical" href={SITE_URL} /> : null}
-        {SITE_URL ? <meta property="og:url" content={SITE_URL} /> : null}
-        {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
-        {ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
+        <link rel="canonical" href={CANONICAL_URL} />
+        <meta property="og:url" content={CANONICAL_URL} />
+        <meta property="og:image" content={OGP_IMAGE_URL} />
+        <meta name="twitter:image" content={OGP_IMAGE_URL} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -437,14 +442,14 @@ const Home: NextPage<Props> = ({ data }) => {
           <header className="flex flex-col gap-6 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-boya-navy/62">
-                  Saunabouya Archive
+                <p className="text-xs font-semibold tracking-[0.16em] text-boya-navy/62">
+                  さうな坊や サウナ投稿アーカイブ
                 </p>
                 <Link
                   href="/about"
                   className="text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
                 >
-                  About
+                  さうな坊やについて
                 </Link>
               </div>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
@@ -453,9 +458,16 @@ const Home: NextPage<Props> = ({ data }) => {
               <p className="max-w-2xl text-sm leading-7 text-boya-ink/80 sm:text-base">
                 さうな坊やが実際に訪問した、大阪・京都・兵庫を中心とするサウナ・銭湯のInstagram投稿を、施設名や地域名から検索できます。
               </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-boya-navy/55">
+                <span>運営：大阪在住のサウナ系クリエイター「さうな坊や」</span>
+                <span className="flex items-center gap-1">
+                  <span aria-hidden="true">✓</span>
+                  実際に訪問した施設のみ掲載
+                </span>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-3">
               <label className="flex w-full flex-col gap-2 sm:max-w-md">
                 <span className="text-sm font-medium text-boya-navy/90">
                   キーワード
@@ -471,20 +483,39 @@ const Home: NextPage<Props> = ({ data }) => {
                     value={searchText}
                     onChange={(event) => handleSearch(event.target.value)}
                     className="w-full border-0 bg-transparent text-base text-boya-navy outline-none placeholder:text-boya-navy/42"
-                    placeholder="例: 大阪 / 神戸 / 施設名"
+                    placeholder="施設名・地域名を入力"
                     aria-label="施設名や地域を入力"
                   />
                 </span>
+                <p className="text-xs text-boya-navy/45">
+                  例：大阪、京都、神戸
+                </p>
               </label>
-              {searchText ? (
-                <button
-                  type="button"
-                  className="inline-flex shrink-0 items-center justify-center rounded-full bg-boya-mist px-4 py-2 text-sm font-medium text-boya-navy transition hover:bg-boya-sand"
-                  onClick={() => handleSearch("")}
-                >
-                  クリア
-                </button>
-              ) : null}
+              <div className="flex flex-wrap items-center gap-2">
+                {QUICK_SEARCH_AREAS.map((area) => (
+                  <button
+                    key={area}
+                    type="button"
+                    onClick={() => handleSearch(area)}
+                    className={`inline-flex items-center rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+                      searchText === area
+                        ? "bg-boya-navy text-white"
+                        : "bg-boya-mist text-boya-navy hover:bg-boya-sand"
+                    }`}
+                  >
+                    {area}
+                  </button>
+                ))}
+                {searchText ? (
+                  <button
+                    type="button"
+                    className="inline-flex items-center rounded-full border border-boya-line px-3.5 py-1.5 text-sm font-medium text-boya-navy/55 transition hover:bg-boya-mist"
+                    onClick={() => handleSearch("")}
+                  >
+                    クリア
+                  </button>
+                ) : null}
+              </div>
             </div>
           </header>
 
@@ -541,6 +572,48 @@ const Home: NextPage<Props> = ({ data }) => {
             ) : null}
           </section>
         </div>
+
+        <footer className="mt-4 w-full max-w-6xl px-4 pb-6">
+          <div className="flex flex-col items-center gap-2 border-t border-boya-line pt-4">
+            <nav
+              className="flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-boya-navy/45"
+              aria-label="SNSリンク"
+            >
+              <a
+                href="https://www.instagram.com/sauna_bouya/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-boya-navy"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://www.tiktok.com/@sauna_bouya"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-boya-navy"
+              >
+                TikTok
+              </a>
+              <a
+                href="https://www.youtube.com/@sauna_bouya"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-boya-navy"
+              >
+                YouTube
+              </a>
+              <Link href="/about" className="transition hover:text-boya-navy">
+                さうな坊やについて
+              </Link>
+            </nav>
+            {lastUpdatedAt ? (
+              <p className="text-[11px] text-boya-navy/35">
+                最終更新 {formatDate(lastUpdatedAt)}
+              </p>
+            ) : null}
+          </div>
+        </footer>
       </main>
     </>
   );
