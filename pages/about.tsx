@@ -9,7 +9,7 @@ const SITE_URL =
 const BIO_LINES = [
   { icon: "📣", text: "実際に訪れて良かったサウナ・銭湯だけを紹介しています" },
   { icon: "✈️", text: "2023/10に10日間フィンランドへ遠征" },
-  { icon: "🧑‍💻", text: "大阪在住/20代/Webエンジニア" },
+  { icon: "🧑‍💻", text: "大阪在住/Webエンジニア" },
 ];
 
 const SITE_FEATURES = [
@@ -182,7 +182,9 @@ const About: NextPage = () => {
                 </h1>
                 <p className="text-sm text-boya-navy/50">@sauna_bouya</p>
                 <p className="mt-1 text-sm leading-6 text-boya-ink/75">
-                  関西を中心に全国のサウナ・銭湯を巡るクリエイター
+                  関西を中心に全国の
+                  <br className="sm:hidden" />
+                  サウナ・銭湯を巡るクリエイター
                 </p>
               </div>
               <div className="mt-6 flex w-full items-center divide-x divide-boya-line border-t border-boya-line pt-6">
@@ -218,14 +220,18 @@ const About: NextPage = () => {
                 さうな坊やとは
               </h2>
             </div>
-            <p className="text-sm leading-7 text-boya-ink sm:text-base">
-              大阪在住のサウナクリエイター。大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
-              InstagramとTikTokでは累計
-              <strong className="font-semibold text-boya-navy">
-                400施設以上
-              </strong>
-              をレポートしています。
-            </p>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm leading-7 text-boya-ink sm:text-base">
+                大阪在住のサウナクリエイター。大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
+              </p>
+              <p className="text-sm leading-7 text-boya-ink sm:text-base">
+                InstagramとTikTokでは累計
+                <strong className="font-semibold text-boya-navy">
+                  400施設以上
+                </strong>
+                をレポートしています。
+              </p>
+            </div>
             <ul className="flex flex-col gap-3">
               {BIO_LINES.map(({ icon, text }) => (
                 <li
