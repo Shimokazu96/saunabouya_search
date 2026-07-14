@@ -4,6 +4,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import path from "path";
 import { useEffect, useState } from "react";
 
@@ -135,6 +136,21 @@ const formatDate = (timestamp: string) => {
     day: "numeric",
   }).format(new Date(timestamp));
 };
+
+const getWebsiteStructuredData = () => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL || "https://search.saunabouya.com",
+  description: PAGE_DESCRIPTION,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${
+      SITE_URL || "https://search.saunabouya.com"
+    }/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+});
 
 const getStructuredData = (data: Card[]) => {
   const topPosts = data.slice(0, 8).map((card, index) => ({
@@ -342,6 +358,7 @@ function PostCard({ card, index }: { card: Card; index: number }) {
 }
 
 const Home: NextPage<Props> = ({ data }) => {
+  const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
   const normalizedSearchText = searchText
@@ -359,11 +376,28 @@ const Home: NextPage<Props> = ({ data }) => {
     ? `「${searchText.trim()}」の結果`
     : "すべての投稿";
   const structuredData = getStructuredData(data);
+  const websiteStructuredData = getWebsiteStructuredData();
   const ogImageUrl = SITE_URL ? `${SITE_URL}/apple-touch-icon.png` : "";
 
   useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE_COUNT);
   }, [normalizedSearchText]);
+
+  useEffect(() => {
+    const q = router.query.q;
+    if (typeof q === "string" && q) {
+      setSearchText(q);
+    }
+  }, [router.query.q]);
+
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+    void router.replace(
+      value ? { pathname: "/", query: { q: value } } : "/",
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
     <>
@@ -387,6 +421,12 @@ const Home: NextPage<Props> = ({ data }) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
           }}
         />
       </Head>
@@ -430,7 +470,7 @@ const Home: NextPage<Props> = ({ data }) => {
                   </span>
                   <input
                     value={searchText}
-                    onChange={(event) => setSearchText(event.target.value)}
+                    onChange={(event) => handleSearch(event.target.value)}
                     className="w-full border-0 bg-transparent text-base text-boya-navy outline-none placeholder:text-boya-navy/42"
                     placeholder="例: 大阪 / 神戸 / 施設名"
                     aria-label="施設名や地域を入力"
@@ -441,7 +481,7 @@ const Home: NextPage<Props> = ({ data }) => {
                 <button
                   type="button"
                   className="inline-flex shrink-0 items-center justify-center rounded-full bg-boya-mist px-4 py-2 text-sm font-medium text-boya-navy transition hover:bg-boya-sand"
-                  onClick={() => setSearchText("")}
+                  onClick={() => handleSearch("")}
                 >
                   クリア
                 </button>
