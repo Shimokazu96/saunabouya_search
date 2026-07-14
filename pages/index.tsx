@@ -18,10 +18,11 @@ const INSTAGRAM_CACHE_PATH = path.join(
   "cache",
   "instagram-posts.json"
 );
-const PAGE_TITLE = "さうな坊やの投稿検索 | サウナ施設・地域別アーカイブ";
-const PAGE_DESCRIPTION =
-  "さうな坊やのInstagram投稿を施設名や地域名で検索できるアーカイブページです。大阪・東京・北海道などのサウナ情報を見やすく一覧できます。";
+const PAGE_TITLE = "関西のサウナ・銭湯投稿検索｜さうな坊や";
 const SITE_NAME = "さうな坊やの投稿検索";
+
+const getPageDescription = (count: number) =>
+  `大阪・京都・兵庫を中心に、さうな坊やが実際に訪問したサウナ・銭湯のInstagram投稿${count}件を、施設名や地域名から検索できます。`;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 
 type InstagramMediaType = "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
@@ -137,12 +138,12 @@ const formatDate = (timestamp: string) => {
   }).format(new Date(timestamp));
 };
 
-const getWebsiteStructuredData = () => ({
+const getWebsiteStructuredData = (description: string) => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: SITE_NAME,
   url: SITE_URL || "https://search.saunabouya.com",
-  description: PAGE_DESCRIPTION,
+  description,
   potentialAction: {
     "@type": "SearchAction",
     target: `${
@@ -152,7 +153,7 @@ const getWebsiteStructuredData = () => ({
   },
 });
 
-const getStructuredData = (data: Card[]) => {
+const getStructuredData = (data: Card[], description: string) => {
   const topPosts = data.slice(0, 8).map((card, index) => ({
     "@type": "ListItem",
     position: index + 1,
@@ -164,7 +165,7 @@ const getStructuredData = (data: Card[]) => {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: PAGE_TITLE,
-    description: PAGE_DESCRIPTION,
+    description,
     inLanguage: "ja",
     ...(SITE_URL ? { url: SITE_URL } : {}),
     mainEntity: {
@@ -375,8 +376,9 @@ const Home: NextPage<Props> = ({ data }) => {
   const resultTitle = hasKeywordFilter
     ? `「${searchText.trim()}」の結果`
     : "すべての投稿";
-  const structuredData = getStructuredData(data);
-  const websiteStructuredData = getWebsiteStructuredData();
+  const pageDescription = getPageDescription(data.length);
+  const structuredData = getStructuredData(data, pageDescription);
+  const websiteStructuredData = getWebsiteStructuredData(pageDescription);
   const ogImageUrl = SITE_URL ? `${SITE_URL}/apple-touch-icon.png` : "";
 
   useEffect(() => {
@@ -403,16 +405,16 @@ const Home: NextPage<Props> = ({ data }) => {
     <>
       <Head>
         <title>{PAGE_TITLE}</title>
-        <meta name="description" content={PAGE_DESCRIPTION} />
+        <meta name="description" content={pageDescription} />
         <meta name="robots" content="index,follow" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:title" content={PAGE_TITLE} />
-        <meta property="og:description" content={PAGE_DESCRIPTION} />
+        <meta property="og:description" content={pageDescription} />
         <meta property="og:locale" content="ja_JP" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={PAGE_TITLE} />
-        <meta name="twitter:description" content={PAGE_DESCRIPTION} />
+        <meta name="twitter:description" content={pageDescription} />
         {SITE_URL ? <link rel="canonical" href={SITE_URL} /> : null}
         {SITE_URL ? <meta property="og:url" content={SITE_URL} /> : null}
         {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
@@ -446,13 +448,10 @@ const Home: NextPage<Props> = ({ data }) => {
                 </Link>
               </div>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
-                さうな坊やの投稿を
-                <br className="sm:hidden" />
-                見やすく検索
+                関西のサウナ・銭湯投稿を検索
               </h1>
               <p className="max-w-2xl text-sm leading-7 text-boya-ink/80 sm:text-base">
-                施設名や地域名で過去の投稿を探せる一覧です。気になる投稿を見つけたら、そのまま
-                Instagram で確認できます。
+                さうな坊やが実際に訪問した、大阪・京都・兵庫を中心とするサウナ・銭湯のInstagram投稿を、施設名や地域名から検索できます。
               </p>
             </div>
 
@@ -501,7 +500,9 @@ const Home: NextPage<Props> = ({ data }) => {
                 {resultTitle}
               </h2>
               <p className="text-sm text-boya-ink/80 sm:text-base">
-                {filteredCards.length}件を表示しています。
+                {hasKeywordFilter
+                  ? `${filteredCards.length}件を表示中`
+                  : `Instagram投稿 ${data.length}件を掲載`}
               </p>
             </div>
 
