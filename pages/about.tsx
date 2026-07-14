@@ -7,7 +7,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://search.saunabouya.com";
 
 const BIO_LINES = [
-  { icon: "📣", text: "実際に訪れて良かったサウナ・銭湯だけを紹介しています" },
+  { icon: "📣", text: "実際に訪れたサウナ・銭湯だけを紹介しています" },
   { icon: "✈️", text: "2023/10に10日間フィンランドへ遠征" },
   { icon: "🧑‍💻", text: "大阪在住/Webエンジニア" },
 ];
@@ -224,7 +224,9 @@ const About: NextPage = () => {
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-sm leading-7 text-boya-ink sm:text-base">
-                大阪在住のサウナクリエイター。大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
+                大阪在住のサウナクリエイター。
+                <br />
+                大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
               </p>
               <p className="text-sm leading-7 text-boya-ink sm:text-base">
                 Instagramでは累計
