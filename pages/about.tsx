@@ -119,7 +119,7 @@ const About: NextPage = () => {
     name: "さうな坊や",
     alternateName: "sauna_bouya",
     description:
-      "大阪在住。大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を巡るクリエイター。Instagramで400件以上の投稿を掲載。",
+      "大阪在住。大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を巡るクリエイター。",
     url: `${SITE_URL}/about`,
     image: `${SITE_URL}/saunabouya-avatar.png`,
     email: "saunabouya@gmail.com",
@@ -189,14 +189,6 @@ const About: NextPage = () => {
               </div>
               <div className="mt-6 flex w-full items-center divide-x divide-boya-line border-t border-boya-line pt-6">
                 <div className="flex flex-1 flex-col items-center gap-0.5">
-                  <span className="text-2xl font-bold text-boya-navy">
-                    400+
-                  </span>
-                  <span className="text-xs text-boya-navy/50">
-                    Instagram投稿数
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col items-center gap-0.5">
                   <span className="text-base font-semibold text-boya-navy">
                     大阪在住
                   </span>
@@ -222,20 +214,11 @@ const About: NextPage = () => {
                 さうな坊やとは
               </h2>
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-sm leading-7 text-boya-ink sm:text-base">
-                大阪在住のサウナクリエイター。
-                <br />
-                大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
-              </p>
-              <p className="text-sm leading-7 text-boya-ink sm:text-base">
-                Instagramでは累計
-                <strong className="font-semibold text-boya-navy">
-                  400件以上
-                </strong>
-                の投稿を掲載しています。
-              </p>
-            </div>
+            <p className="text-sm leading-7 text-boya-ink sm:text-base">
+              大阪在住のサウナクリエイター。
+              <br />
+              大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
+            </p>
             <ul className="flex flex-col gap-3">
               {BIO_LINES.map(({ icon, text }) => (
                 <li
