@@ -217,7 +217,7 @@ const About: NextPage = () => {
             <p className="text-sm leading-7 text-boya-ink sm:text-base">
               大阪在住のサウナクリエイター。
               <br />
-              大阪を拠点に、関西を中心としながら北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
+              大阪を拠点に、関西を中心としながら東京など北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
             </p>
             <ul className="flex flex-col gap-3">
               {BIO_LINES.map(({ icon, text }) => (
@@ -281,7 +281,7 @@ const About: NextPage = () => {
               <h2 className="text-lg font-semibold text-boya-navy">活動地域</h2>
             </div>
             <p className="text-sm leading-7 text-boya-ink sm:text-base">
-              大阪を拠点に、関西を中心としてサウナ・銭湯を紹介しています。北海道から九州まで、全国各地にも積極的に遠征しています。
+              大阪を拠点に、関西を中心としてサウナ・銭湯を紹介しています。東京をはじめ、北海道から九州まで全国各地にも積極的に遠征しています。
             </p>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
