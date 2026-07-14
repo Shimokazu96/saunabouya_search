@@ -28,12 +28,6 @@ const SNS_LINKS: Array<{
     icon: "instagram",
   },
   {
-    name: "X",
-    handle: "@sauna_bouya",
-    url: "https://x.com/sauna_bouya",
-    icon: "x",
-  },
-  {
     name: "TikTok",
     handle: "@sauna_bouya",
     url: "https://www.tiktok.com/@sauna_bouya",
