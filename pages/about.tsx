@@ -6,8 +6,8 @@ import type { NextPage } from "next";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 
 const BIO_LINES = [
-  { icon: "📣", text: "関西を中心に実際に訪れて良かった所を紹介します！" },
-  { icon: "✈️", text: "2023/10に10日間フィンランド行ってきたよ" },
+  { icon: "📣", text: "実際に訪れて良かったサウナ・銭湯だけを紹介しています" },
+  { icon: "✈️", text: "2023/10に10日間フィンランドへ遠征" },
   { icon: "🧑‍💻", text: "大阪在住/20代/Webエンジニア" },
 ];
 
@@ -26,12 +26,6 @@ const SNS_LINKS: Array<{
     handle: "@sauna_bouya",
     url: "https://www.instagram.com/sauna_bouya/",
     icon: "instagram",
-  },
-  {
-    name: "X",
-    handle: "@sauna_bouya",
-    url: "https://x.com/sauna_bouya",
-    icon: "x",
   },
   {
     name: "TikTok",
@@ -89,7 +83,7 @@ const snsIcons: Record<SnsIcon, React.ReactNode> = {
 const About: NextPage = () => {
   const pageTitle = "さうな坊やについて | さうな坊やの投稿検索";
   const pageDescription =
-    "さうな坊やのプロフィールと活動地域、SNSをご紹介します。関西全域を拠点にサウナ施設を実際に訪れてレポートしています。";
+    "さうな坊やは大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を紹介するクリエイターです。Instagram・TikTokでは400施設以上を紹介しています。";
   const ogImageUrl = SITE_URL ? `${SITE_URL}/apple-touch-icon.png` : "";
 
   return (
@@ -112,10 +106,18 @@ const About: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center py-6 sm:py-10">
         <div className="flex w-full max-w-2xl flex-col gap-5 px-4 sm:gap-6">
+          {/* 戻るリンク */}
+          <Link
+            href="/"
+            className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-boya-navy/65 shadow-sm ring-1 ring-boya-line transition hover:bg-boya-mist"
+          >
+            ← 投稿検索に戻る
+          </Link>
+
           {/* プロフィールカード */}
           <div className="overflow-hidden rounded-[28px] border border-boya-line bg-white shadow-sm">
             <div className="h-28 bg-boya-navy" />
-            <div className="flex flex-col items-center px-6 pb-8">
+            <div className="flex flex-col items-center px-6 pb-8 text-center">
               <div className="-mt-14 overflow-hidden rounded-full border-4 border-white shadow-sm">
                 <Image
                   src="/saunabouya-avatar.png"
@@ -125,18 +127,15 @@ const About: NextPage = () => {
                   className="rounded-full"
                 />
               </div>
-              <div className="mt-4 flex flex-col items-center gap-1">
+              <div className="mt-4 flex flex-col items-center gap-1.5">
                 <h1 className="text-2xl font-semibold tracking-tight text-boya-navy">
                   さうな坊や
                 </h1>
                 <p className="text-sm text-boya-navy/50">@sauna_bouya</p>
+                <p className="mt-1 text-sm leading-6 text-boya-ink/75">
+                  関西を中心に全国のサウナ・銭湯を巡るクリエイター
+                </p>
               </div>
-              <Link
-                href="/"
-                className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-boya-mist px-4 py-2 text-sm font-medium text-boya-navy/70 transition hover:bg-boya-sand"
-              >
-                ← 投稿検索に戻る
-              </Link>
             </div>
           </div>
 
@@ -150,6 +149,10 @@ const About: NextPage = () => {
                 さうな坊やとは
               </h2>
             </div>
+            <p className="text-sm leading-7 text-boya-ink sm:text-base">
+              大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を巡るクリエイターです。
+              実際に訪れた施設だけをInstagram・TikTokで紹介しており、累計400施設以上をレポートしています。
+            </p>
             <ul className="flex flex-col gap-3">
               {BIO_LINES.map(({ icon, text }) => (
                 <li
@@ -175,19 +178,32 @@ const About: NextPage = () => {
               </p>
               <h2 className="text-lg font-semibold text-boya-navy">活動地域</h2>
             </div>
-            <div className="flex flex-col gap-3">
-              <span className="inline-flex w-fit items-center rounded-2xl bg-boya-navy px-5 py-2.5 text-sm font-semibold text-white">
-                関西全域
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {CENTRAL_AREAS.map((area) => (
-                  <span
-                    key={area}
-                    className="inline-flex items-center rounded-full bg-boya-mist px-3.5 py-1.5 text-sm font-medium text-boya-navy/78"
-                  >
-                    {area}
-                  </span>
-                ))}
+            <p className="text-sm leading-7 text-boya-ink sm:text-base">
+              大阪・京都・兵庫を中心とした関西が活動の拠点です。北海道から九州まで、全国各地にも積極的に遠征しています。
+            </p>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs font-semibold tracking-wide text-boya-navy/50">
+                  拠点エリア
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {CENTRAL_AREAS.map((area) => (
+                    <span
+                      key={area}
+                      className="inline-flex items-center rounded-full bg-boya-navy px-3.5 py-1.5 text-sm font-medium text-white"
+                    >
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-xs font-semibold tracking-wide text-boya-navy/50">
+                  活動範囲
+                </p>
+                <span className="inline-flex w-fit items-center rounded-full bg-boya-mist px-3.5 py-1.5 text-sm font-medium text-boya-navy/78">
+                  全国各地
+                </span>
               </div>
             </div>
           </section>
