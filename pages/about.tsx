@@ -150,6 +150,11 @@ const About: NextPage = () => {
                 さうな坊やとは
               </h2>
             </div>
+            <p className="text-sm leading-7 text-boya-ink sm:text-base">
+              さうな坊やは大阪・京都・兵庫を中心に関西のサウナ・銭湯を紹介するクリエイターです。
+              <br />
+              Instagram・TikTokでは400施設以上を紹介しています。
+            </p>
             <ul className="flex flex-col gap-3">
               {BIO_LINES.map(({ icon, text }) => (
                 <li
