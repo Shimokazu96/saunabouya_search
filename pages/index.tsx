@@ -26,7 +26,7 @@ const getPageDescription = (count: number) =>
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 const CANONICAL_URL = "https://search.saunabouya.com/";
 const OGP_IMAGE_URL = "https://search.saunabouya.com/apple-touch-icon.png";
-const QUICK_SEARCH_AREAS = ["大阪", "兵庫", "京都", "奈良"] as const;
+const QUICK_SEARCH_AREAS = ["大阪", "兵庫", "京都"] as const;
 
 type InstagramMediaType = "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
 
