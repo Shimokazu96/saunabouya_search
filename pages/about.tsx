@@ -110,7 +110,7 @@ const snsIcons: Record<SnsIcon, React.ReactNode> = {
 const About: NextPage = () => {
   const pageTitle = "さうな坊やについて | さうな坊やの投稿検索";
   const pageDescription =
-    "さうな坊やは大阪在住のサウナクリエイター。関西を中心に全国400施設以上のサウナ・銭湯をInstagram・TikTokで紹介しています。";
+    "さうな坊やは大阪在住のサウナクリエイター。関西を中心に全国各地のサウナ・銭湯をInstagram・TikTokで紹介しています。";
   const ogImageUrl = `${SITE_URL}/saunabouya-avatar.png`;
 
   const personStructuredData = {
@@ -119,7 +119,7 @@ const About: NextPage = () => {
     name: "さうな坊や",
     alternateName: "sauna_bouya",
     description:
-      "大阪在住。大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を巡るクリエイター。累計400施設以上を紹介。",
+      "大阪在住。大阪・京都・兵庫を拠点に、関西を中心に全国各地のサウナ・銭湯を巡るクリエイター。Instagramで400件以上の投稿を掲載。",
     url: `${SITE_URL}/about`,
     image: `${SITE_URL}/saunabouya-avatar.png`,
     email: "saunabouya@gmail.com",
@@ -192,7 +192,9 @@ const About: NextPage = () => {
                   <span className="text-2xl font-bold text-boya-navy">
                     400+
                   </span>
-                  <span className="text-xs text-boya-navy/50">紹介施設数</span>
+                  <span className="text-xs text-boya-navy/50">
+                    Instagram投稿数
+                  </span>
                 </div>
                 <div className="flex flex-1 flex-col items-center gap-0.5">
                   <span className="text-base font-semibold text-boya-navy">
@@ -225,11 +227,11 @@ const About: NextPage = () => {
                 大阪在住のサウナクリエイター。大阪・京都・兵庫を拠点に関西を中心としながら、北海道から九州まで全国各地のサウナ・銭湯を実際に訪れて紹介しています。
               </p>
               <p className="text-sm leading-7 text-boya-ink sm:text-base">
-                InstagramとTikTokでは累計
+                Instagramでは累計
                 <strong className="font-semibold text-boya-navy">
-                  400施設以上
+                  400件以上
                 </strong>
-                をレポートしています。
+                の投稿を掲載しています。
               </p>
             </div>
             <ul className="flex flex-col gap-3">
