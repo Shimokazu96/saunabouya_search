@@ -456,7 +456,7 @@ const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
                 関西のサウナ・銭湯投稿を検索
               </h1>
               <p className="max-w-2xl text-sm leading-7 text-boya-ink/80 sm:text-base">
-                さうな坊やが実際に訪問した、大阪・京都・兵庫を中心とするサウナ・銭湯のInstagram投稿を、施設名や地域名から検索できます。
+                さうな坊やが実際に訪問したサウナ・銭湯のInstagram投稿を、施設名や地域名から検索できます。大阪・京都・兵庫を中心に、東京など全国各地の投稿を掲載しています。
               </p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-boya-navy/55">
                 <span>運営：大阪在住のサウナ系クリエイター「さうな坊や」</span>
