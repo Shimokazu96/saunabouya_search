@@ -26,7 +26,7 @@ const getPageDescription = (count: number) =>
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 const CANONICAL_URL = "https://search.saunabouya.com/";
 const OGP_IMAGE_URL = "https://search.saunabouya.com/apple-touch-icon.png";
-const QUICK_SEARCH_AREAS = ["大阪", "兵庫", "京都", "奈良"] as const;
+const QUICK_SEARCH_AREAS = ["大阪", "兵庫", "京都"] as const;
 
 type InstagramMediaType = "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
 
@@ -441,13 +441,13 @@ const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
         <div className="flex w-full max-w-6xl flex-col gap-5 px-4 sm:gap-6">
           <header className="flex flex-col gap-6 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold tracking-[0.16em] text-boya-navy/62">
+              <div className="flex items-center justify-between gap-3">
+                <p className="whitespace-nowrap text-xs font-semibold text-boya-navy/62 sm:tracking-[0.16em]">
                   さうな坊や サウナ投稿アーカイブ
                 </p>
                 <Link
                   href="/about"
-                  className="text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
+                  className="shrink-0 whitespace-nowrap text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
                 >
                   さうな坊やについて
                 </Link>
