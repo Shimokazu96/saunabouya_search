@@ -20,7 +20,7 @@ const SITE_FEATURES = [
 
 const CENTRAL_AREAS = ["大阪", "兵庫", "京都"];
 
-type SnsIcon = "instagram" | "tiktok" | "youtube" | "email";
+type SnsIcon = "instagram" | "tiktok" | "youtube" | "blog";
 
 const SNS_LINKS: Array<{
   name: string;
@@ -51,11 +51,11 @@ const SNS_LINKS: Array<{
     external: true,
   },
   {
-    name: "メール",
-    handle: "saunabouya@gmail.com",
-    url: "mailto:saunabouya@gmail.com",
-    icon: "email",
-    external: false,
+    name: "ブログ",
+    handle: "saunabouya.com",
+    url: "https://saunabouya.com/",
+    icon: "blog",
+    external: true,
   },
 ];
 
@@ -91,11 +91,10 @@ function IconLine() {
   );
 }
 
-function IconEmail() {
+function IconBlog() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
-      <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-      <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 17.93V18a1 1 0 00-1-1H8a3 3 0 01-3-3v-1a3 3 0 013-3h1V9a1 1 0 011-1h4a1 1 0 011 1v2h1a3 3 0 013 3 1 1 0 01-1 1h-1v1a3 3 0 01-3 3h-1v1.93A8.001 8.001 0 0111 19.93zM12 4a8 8 0 017.42 5H17a1 1 0 00-1 1v1h-4V9a1 1 0 00-1-1H9V7a1 1 0 00-.48-.857A8.01 8.01 0 0112 4z" />
     </svg>
   );
 }
@@ -104,7 +103,7 @@ const snsIcons: Record<SnsIcon, React.ReactNode> = {
   instagram: <IconInstagram />,
   tiktok: <IconTikTok />,
   youtube: <IconYouTube />,
-  email: <IconEmail />,
+  blog: <IconBlog />,
 };
 
 const About: NextPage = () => {
@@ -408,7 +407,14 @@ const About: NextPage = () => {
                 className="group inline-flex items-center gap-3 rounded-2xl border border-boya-line px-5 py-4 transition hover:border-boya-navy/20 hover:bg-boya-mist"
               >
                 <span className="text-boya-navy/65 transition group-hover:text-boya-navy">
-                  <IconEmail />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-7 w-7"
+                  >
+                    <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                    <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                  </svg>
                 </span>
                 <span className="text-sm font-semibold text-boya-navy">
                   saunabouya@gmail.com
