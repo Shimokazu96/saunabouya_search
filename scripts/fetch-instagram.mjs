@@ -51,7 +51,7 @@ async function fetchAll() {
 const posts = await fetchAll();
 console.log(`Total: ${posts.length} posts`);
 
-const outDir = join(__dirname, "..", "data");
+const outDir = join(__dirname, "..", "public", "data");
 mkdirSync(outDir, { recursive: true });
 
 const outPath = join(outDir, "instagram-posts.json");
