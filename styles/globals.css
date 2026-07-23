@@ -1,122 +1,83 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.post {
-  width: calc(25% - 20px);
-  margin-bottom: 20px;
-  margin-right: 20px;
-}
-
-.post:last-child {
-  margin-right: 0;
-}
-
-.post-image {
-  margin-bottom: 10px;
-}
-
-.post-image img {
-  display: block;
-  max-width: 100%;
-}
-
-.post-actions {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.post-actions button {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.post-actions button img {
-  margin-right: 5px;
-}
-
-.post-comments {
-  margin-top: 20px;
-}
-
-.post-comment {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.post-comment img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.post-comment h4 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-.post-comment p {
-  margin: 0;
-  font-size: 12px;
-  color: #666;
-}
-
-@media screen and (max-width: 1024px) {
-  .post {
-    width: calc(33.33% - 20px);
-    margin-right: 20px;
+@layer base {
+  :root {
+    color-scheme: light;
   }
-  
-  .post:last-child {
-    margin-right: 0;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #ffffff;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top, rgba(32, 37, 83, 0.08), transparent 36%),
+      radial-gradient(circle at 86% 12%, rgba(32, 37, 83, 0.05), transparent 20%),
+      #ffffff;
+    color: #253152;
+    font-family:
+      "Avenir Next",
+      "Hiragino Sans",
+      "Hiragino Kaku Gothic ProN",
+      "Yu Gothic",
+      "Noto Sans JP",
+      sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .post {
-    width: calc(50% - 20px);
-    margin-right: 20px;
-  }
-  
-  .post:last-child {
-    margin-right: 0;
-  }
-}
+@layer utilities {
+  @keyframes shimmer {
+    from {
+      background-position:
+        200% 0,
+        0 0;
+    }
 
-@media screen and (max-width: 480px) {
-  .post {
-    width: 100%;
-    margin-right: 0;
+    to {
+      background-position:
+        -20% 0,
+        0 0;
+    }
+  }
+
+  .bg-media-shimmer {
+    background-image:
+      linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.78) 50%,
+        transparent 80%
+      ),
+      linear-gradient(180deg, #f6f8fc, #e8eef8);
+    background-size:
+      220% 100%,
+      100% 100%;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.8s linear infinite;
   }
 }
