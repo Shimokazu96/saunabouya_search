@@ -4,10 +4,31 @@ on:
   schedule:
     - cron: '18 18 * * *'  # UTC 18:18 → JST 03:18（+9時間）
   workflow_dispatch:
+
 jobs:
   rebuild:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch Instagram posts and save JSON
+        env:
+          NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN }}
+          NEXT_PUBLIC_INSTAGRAM_BUSINESS_ID: ${{ secrets.NEXT_PUBLIC_INSTAGRAM_BUSINESS_ID }}
+        run: node scripts/fetch-instagram.mjs
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/instagram-posts.json
+          git diff --staged --quiet && echo "No changes" || git commit -m "chore: update Instagram posts data [skip ci]"
+          git push
+
       - name: Call Vercel Webhook
         run: |
           curl -sf -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
