@@ -442,9 +442,12 @@ const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
           <header className="flex flex-col gap-6 rounded-[28px] border border-boya-line bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between gap-3">
-                <p className="whitespace-nowrap text-xs font-semibold text-boya-navy/62 sm:tracking-[0.16em]">
+                <a
+                  href="https://saunabouya.com"
+                  className="whitespace-nowrap text-xs font-semibold text-boya-navy/62 transition hover:text-boya-navy sm:tracking-[0.16em]"
+                >
                   さうな坊や サウナ投稿アーカイブ
-                </p>
+                </a>
                 <Link
                   href="/about"
                   className="shrink-0 whitespace-nowrap text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
