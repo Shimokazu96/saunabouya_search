@@ -8,6 +8,9 @@ on:
 jobs:
   rebuild:
     runs-on: ubuntu-latest
+    environment: Production
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
