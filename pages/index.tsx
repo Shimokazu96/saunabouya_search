@@ -3,7 +3,6 @@ import fs from "fs/promises";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import path from "path";
 import { useEffect, useState } from "react";
@@ -448,12 +447,12 @@ const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
                 >
                   さうな坊や サウナ投稿アーカイブ
                 </a>
-                <Link
-                  href="/about"
+                <a
+                  href="https://saunabouya.com/about/"
                   className="shrink-0 whitespace-nowrap text-xs font-medium text-boya-navy/55 transition hover:text-boya-navy"
                 >
                   さうな坊やについて
-                </Link>
+                </a>
               </div>
               <h1 className="text-[clamp(1.75rem,3vw,2.4rem)] font-semibold tracking-tight text-boya-navy">
                 関西のサウナ・銭湯投稿を検索
@@ -606,9 +605,12 @@ const Home: NextPage<Props> = ({ data, lastUpdatedAt }) => {
               >
                 YouTube
               </a>
-              <Link href="/about" className="transition hover:text-boya-navy">
+              <a
+                href="https://saunabouya.com/about/"
+                className="transition hover:text-boya-navy"
+              >
                 さうな坊やについて
-              </Link>
+              </a>
             </nav>
             {lastUpdatedAt ? (
               <p className="text-[11px] text-boya-navy/35">

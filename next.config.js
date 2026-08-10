@@ -47,6 +47,15 @@ const nextConfig = {
       'www.instagram.com',
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/about',
+        destination: 'https://saunabouya.com/about/',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
